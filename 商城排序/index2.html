@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index2.css">
+    <link rel="stylesheet" href="css/iconfont.css">
+</head>
+<body>
+    <div id="main">
+       <div id="topBar">
+           <span>排序</span>
+           <a class="sotBtn" href="javascript:;" sortFlag="time">
+               <span>上架时间</span>
+               <div class="arrows">
+                   <b class="iconfont icon-shang arrowUp"></b>
+                   <b class="iconfont icon-xiajiantou arrowDown"></b>
+               </div>
+           </a>
+           <a class="sotBtn" href="javascript:;" sortFlag="hot">
+            <span>热度</span>
+            <div class="arrows">
+                <b class="iconfont icon-shang arrowUp"></b>
+                <b class="iconfont icon-xiajiantou arrowDown"></b>
+         </div>
+           </a>
+           <a class="sotBtn" href="javascript:;" sortFlag="price">
+            <span>价格</span>
+            <div class="arrows">
+                <b class="iconfont icon-shang arrowUp"></b>
+                <b class="iconfont icon-xiajiantou arrowDown"></b>
+         </div>
+           </a>
+       </div>
+       <ul class="lists" id="lists">
+           <!-- <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li>
+           <li>
+               <img src="images/1.jpg" alt="">
+               <p class="title">HUAWEI全网通版（亮黑色）</p>
+               <p>2017-03-15</p>
+               <p class="numInfo">
+                   <span class="price">198元</span>
+                   <span class="hot">198</span>
+               </p>
+           </li> -->
+       </ul>
+    </div>
+</body>
+</html>
+<script>
+/* 
+  第一步：通过ajax请求得到后台的数据
+
+*/
+// 创建一个ajax对象
+var str="";
+var lists=document.getElementById("lists");
+var links=document.querySelectorAll("#topBar a");
+var listsDom;
+var listAry=[]
+var data=null;
+var xhr=new XMLHttpRequest();
+xhr.open("get","data/data.json");
+xhr.onreadystatechange=function(){
+    if(xhr.readyState==4&&/^2\d{2}/.test(xhr.status)){
+        //  data=xhr.responseText;
+       data=JSON.parse(xhr.responseText);
+       //绑定数据
+       bindHTML(data);
+       lists.innerHTML=str;
+       //
+      listsDom=document.querySelectorAll("#main li");
+      listAry=Array.from(listsDom);
+
+    }
+}
+xhr.send();
+
+// 把数据绑定到页面上
+function bindHTML(data){
+    data.forEach((item,index) => {
+        str+=`
+        <li time="${item.time}" hot="${item.hot}" price="${item.price}" >
+               <img src="${item.img}" alt="">
+               <p class="title">${item.title}</p>
+               <p>${item.time}</p>
+               <p class="numInfo">
+                   <span class="price">${item.price}元</span>
+                   <span class="hot">${item.hot}</span>
+               </p>
+        </li>
+        `
+    });
+}
+
+
+// 当点击的是上架时间，我们就按照上架时间进行排序
+// 当点击的是热度，我们就按照热度进行排序
+// 当点击的是价格，我们就按照价格进行排序
+
+for(var i=0;i<links.length;i++){
+    links[i].flag=-1;
+    links[i].onclick=function(){
+        var that=this;
+        this.flag*=-1;
+        //每次点击的时候都把其它项重置下flag
+        for(var i=0;i<links.length;i++){
+            if(this!=links[i]){
+               links[i].flag=-1;
+            }
+        }
+        var arrows=this.querySelectorAll("b");
+        // 给箭头添加current样式之前先要清空
+        var curAry=document.querySelectorAll(".current");
+        for(var i=0;i<curAry.length;i++){
+           curAry[i].classList.remove("current");
+        }
+        if(this.flag==1){
+            arrows[0].classList.add("current");
+        }else{
+            arrows[1].classList.add("current");
+        }
+        //点击的时候，我怎么知道是时间，还是热度、价格？
+        var sortFlag=this.getAttribute("sortFlag");
+        // 如果是时间，我们就按照时间进行排序
+        if(sortFlag=="time"){
+             debugger;
+            listAry.sort(function(a,b){
+               return (a.getAttribute("time").replace(/-/g,"")-b.getAttribute("time").replace(/-/g,""))*that.flag;
+            });
+        }else{
+            // 热度 和价格
+            listAry.sort(function(a,b){
+               return (a.getAttribute(sortFlag)-b.getAttribute(sortFlag))*that.flag;
+            });
+        }
+        for(var i=0;i<listAry.length;i++){
+                lists.appendChild(listAry[i]);
+        }
+    }
+}
+
+/* 
+ 如果flag 是1 就是升序排，让upArrow 的文字颜色变红
+ 如果flag 是-1 就是降序排，让downArrow 的文字颜色变红
+
+
+*/
+
+
+
+
+</script>
