@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding:0;
+      margin: 0;
+    }
+    #box {
+      width: 200px;
+      height: 200px;
+      background: green;
+      border: 10px solid yellow;
+      padding:20px;
+      margin:  800px auto 0 auto;
+      line-height: 300px;
+      overflow: auto;
+      /* position: relative; */
+    }
+    p {
+      margin: auto;
+      width: 100px;
+      height: 500px;
+      background: red;
+      /* border: 5px solid aqua; */
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <!-- hjsvfkjsafjdsfjdvhfscsdj<br/>
+    sjgsajfgdgfdgfjagksjd  -->
+    <p></p>
+  </div>
+  <script src="./utils.js"></script>
+  <script>
+    // console.log(utils);
+    // css盒子模型
+    // 宽度+左右的内边距+左右的边框+左右的外边距
+    // width+左右padding+左右border+左右margin
+    // js盒子模型和css盒子模型类似，也是描述当前盒子的尺寸
+
+    // js的盒子模型一个有四大系列共13个
+    // client
+    //   clientWidth clientHeight clientLeft clientTop
+    // offset
+    //   offsetWidth offsetHeight offsetLeft offsetTop offsetParent
+    // scroll
+    //   scrollTop scrollLeft scrollWidth scrollHeight
+
+    //   getComputedStyle(ele)    ele.currentStyle
+
+    //---------------------------------------------------------
+    // client系列
+    // 获取当前盒子可视区域的宽高
+        // clientWidth:当前盒子可视区域的宽度(width+左右的padding)
+        // clientHeight：当前盒子可视区域的高度(height+上下的padding)
+    // 获取当前盒子的左、上边框的宽度
+        // clientLeft：当前盒子左边框的宽度(左border)
+        // clientTop：当前盒子左边框的宽度(上border)
+
+    // 获取的值都是number类型的
+    // 如果获取的值是小数，那么他会给你向上取整为整数
+    // 内容是否溢出对其没有影响
+
+    // ceil floor round random
+        // console.log(box.clientWidth);
+        // console.log(box.clientHeight);
+
+        // // 获取当前浏览器可视区域的宽高
+        // let winH = document.documentElement.clientHeight || document.body.clientHeight;
+        // let winW =  document.documentElement.clientWidth || document.body.clientWidth;
+        // console.log(winH);
+        // console.log(winW);
+    // -----------------------------------------------
+    // offset系列
+    //   获取当前盒子的总宽高
+    //   offsetWidth：获取当前盒子的总宽度(clinetWidth+左右border)
+    //   offsetHeight：获取当前盒子的总高度(clientHeight+上下border)
+
+    // 获取当前盒子的偏移量
+    // offsetLeft：当前盒子距离父级参照物的左偏移量(当前盒子的外边框距离父级参照物的内边框的距离)
+    // offsetTop:  当前盒子距离父级参照物的上偏移量(当前盒子的外边框距离父级参照物的内边框的距离)
+    // offsetParent：当前盒子的父级参照物
+    // 当前盒子的父级参照物是谁，要取决于当前盒子的所有的父元素中，从里往外一层一层查找，看看谁有position定位，谁就是他的父级参照物
+    // body的父级参照物是null
+
+
+
+    // 获取当前盒子距离body的偏移量，
+    // 现在不管你的父级参照物是谁，你就先获取一下当前盒子距离父级参照物的距离然后在加上父级参照物的border，
+    // 然后在看看你的父级参照物的父级参照物是不是body，如果不是body就继续上边的累加，如果是那就结束，
+
+    // 封装一个获取盒子距离body的偏移量的方法
+    // function offset(ele){
+    //   let left = ele.offsetLeft;
+    //   let top = ele.offsetTop;
+    //   // 一上来不管三七二十一先获取一下当前元素距离父级参照物的偏移量
+    //   let parent = ele.offsetParent; // 然后在获取一下当前元素的父级参照物
+
+    //   while(parent !== document.body){ // 如果当前元素的父级参照物不是body那就要进行累加操作
+    //     left+=(parent.offsetLeft + parent.clientLeft);
+    //     top+=(parent.offsetTop + parent.clientTop);
+    //     parent = parent.offsetParent // 再次获取当前父级参照物的父级参照物
+    //   }
+
+    //   return {
+    //     left,
+    //     top
+    //   }
+
+    // }
+
+    // let res = offset(box); // {left:100,top:80}
+
+    //------------------------------------------------
+    // scroll系列
+    // 获取当前 元素的真实的宽高
+    
+    // scrollHeight:获取当前元素的真实的高度(如果当前盒子的内容没有溢出那就和clientHeight相等)，如果溢出了那就等于上padding+内容的真实高度【如果当前盒子设置了overflow：hidden那scrollHeight就等于上下pdaaing+溢出内容的真实高度】
+
+    // scrollWidth:获取当前元素的真实的宽度(如果当前盒子的内容没有溢出那就和clientWidth相等)，如果溢出了那就等于左padding+内容的真实宽度【如果当前盒子设置了overflow：hidden那scrollWidth就等于左右pdaaing+溢出内容的真实宽度】
+
+    // 以上十一个属性都是只读属性，不可以设置
+    //--------------------------------------------------------------------
+    // scrollTop和scrollLeft
+    // 当前盒子的滚动条卷曲的高度和宽度
+    // scrollTop:获取和设置当前盒子纵向滚动条卷曲的高度
+    // scrollLeft:获取和设置当前盒子横向滚动条卷曲的宽度
+
+    // let winT = document.documentElement.scrollTop || document.body.scrollTop;
+    // let winL = document.documentElement.scrollLeft || document.body.scrollLeft;
+    // console.log(winT,winL);
+
+    // 临界值
+    // min = 0
+    // max = scrollHeight - clientHeight
+
+    // 封装一个方法专门用来设置或者获取浏览器的某些属性
+    // function win(attr,value){
+    //   if(value == undefined){
+    //     return document.documentElement[attr] || document.body[attr]
+    //   }
+    //   document.documentElement[attr] = value;
+    //   document.body[attr] = value;
+    // }
+    win('scrollTop',100) // 设置
+    console.log(win('clientWidth')); // 获取
+  </script>
+
+</body>
+</html>

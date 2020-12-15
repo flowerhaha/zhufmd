@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    window.$ = 100;
+    window.jQuery = 800;
+  </script>
+  <script src="./jquery-1.11.3.js"></script>
+
+  <script>
+    let newJquery = jQuery.noConflict(true);
+    // jQuery.noConflict执行不加true，是把$的使用权转让出去
+     // jQuery.noConflict执行加true，是把$和jQuery的使用权转让出去
+    console.log($); // 100
+    console.log(jQuery); // 800
+    console.log(newJquery); // jQuery
+  </script>
+</body>
+
+</html>

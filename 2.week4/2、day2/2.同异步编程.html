@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./jquery-1.11.3.js"></script>
+  <script>
+    // console.log(100);
+    // setTimeout(()=>{
+    //   console.log(200);
+    // },20);
+    // setTimeout(()=>{
+    //   console.log(400);
+    // },10)
+    // console.log(300);
+    // 当打开一个页面的时候，浏览器会分配一个线程来执行页面的代码，而且把全部的同步代码执行完成以后才会执行异步代码
+    // 当主线程执行的时候，如果遇到异步任务就放到异步任务队列(Event Queue)中(让浏览器在分配一个线程来执行他，但是这时候异步任务不输出)当主任务执行完成之后，主线程空闲了，会去异步任务队列中拿满足输出条件的任务到主任务队列中来执行(不断循环这个过程，就叫做事件循环Event Loop)
+
+
+
+    // 主任务队列(同步代码) 异步任务队列(异步代码)
+
+    // 定时器  事件 ajax promise async await
+    // box.onclick = function(){}
+
+    // console.log(100);
+    // setTimeout(() => {
+    //   console.log(200);
+    // }, 20)
+    // console.time()
+    // // for (let i = 0; i < 100000000; i++) { }; // 700ms
+    // console.timeEnd()
+    // setTimeout(() => {
+    //   console.log(300);
+    // },19);
+    // console.log(400);
+    //--------------------------------------------------------
+    // function get() { // 1000
+    //   let xhr = new XMLHttpRequest;
+    //   xhr.open('get', './data.json', true);
+    //   xhr.onreadystatechange = function () {
+    //     if (xhr.status === 200 && xhr.readyState === 4) {
+    //       console.log(xhr.response);
+    //     }
+    //   }
+    //   xhr.send();
+    // }
+    // get()
+    // get()
+    // get()
+    // get()
+    // console.log(100); // 100
+
+    //-----------------------------------------------------
+    // let ss = null;
+    // $.ajax({
+    //   url: './data.json',
+    //   async: true,
+    //   success: (res) => {
+    //     console.log(res);
+    //     $.ajax({
+    //       url: './data.json',
+    //       async: true,
+    //       success: (res) => {
+    //         console.log(res);
+    //         $.ajax({
+    //           url: './data.json',
+    //           async: true,
+    //           success: (res) => {
+    //             console.log(res);
+    //           }
+    //         })
+    //       }
+    //     })
+    //   }
+    // });
+
+    let p1 = new Promise((resolve, reject) => {
+      $.ajax({
+        url: './data.json',
+        async: true,
+        success: (res) => {
+          // console.log(res);
+          resolve(res)
+        }
+      })
+    })
+    // 当promise的resolve函数执行，那then中的第一个回调函数就会执行，这样我们就可以在then的第一个回调函数中发送第二个请求了
+    p1.then((res)=>{
+      console.log(100,res);
+      //在这里发送第二个请求
+
+    },()=>{});
+    // peomise就是把异步的代码以同步的形式显示出来
+   
+
+
+    // 当第一个请求完成之后在发送第二个请求
+
+    // Promise是一个Es6新增的类，是专门用来解决异步地狱回调问题的
+  </script>
+</body>
+
+</html>

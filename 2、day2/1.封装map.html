@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+     function myMap(callBack){
+      // console.log(ss);
+      let ary = [];
+      for(let i = 0;i<this.length;i++){
+        let res = callBack(this[i],i);
+        ary.push(res);
+      }
+      return ary;
+    }
+
+    Array.prototype.myMap = myMap;
+    let res = [100,200,300,400].myMap((item,index)=>{
+      return 1
+    });
+    // [1,1,1,1]
+  </script>
+</body>
+</html>

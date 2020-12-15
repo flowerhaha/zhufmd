@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script src="./jquery-1.11.3.js"></script>
+  <script>
+
+    $('#box'); // 返回值是一个jq的实例【是一个元素集合】
+    // $('#box').addClass()
+
+
+    // $('#box').each()
+
+    // $.each()
+
+    // let ary = [100,200,300,400];
+    // // $.each(ary,function(index,item){
+    // //   console.log(item);
+    // // })
+    // // $.ajax()
+
+    // $('#box') // 是一个jq的实例
+
+    //-------------------------------------
+    (function (global, factory) { // window  fun
+      if (typeof module === "object" && typeof module.exports === "object") {
+        module.exports = global.document ?
+          factory(global, true) :
+          function (w) {
+            if (!w.document) {
+              throw new Error("jQuery requires a window with a document");
+            }
+            return factory(w);
+          };
+      } else {
+        factory(global);// window
+      }
+    }(typeof window !== "undefined" ? window : this), function (window, noGlobal) {// window un
+      var deletedIds = [];
+      var slice = deletedIds.slice;
+      var concat = deletedIds.concat;
+      var push = deletedIds.push;
+      var indexOf = deletedIds.indexOf;
+      var class2type = {};
+      var toString = class2type.toString;
+      var hasOwn = class2type.hasOwnProperty;
+      var support = {};
+      var version = "1.11.3";
+      // 此函数一会再说
+      var jQuery = function (selector, context) {
+        // return new jQuery
+        return new jQuery.fn.init(selector, context);
+      };
+
+      jQuery.fn = jQuery.prototype = { // 给jQuery的原型进行重定向
+        jquery: version,
+        constructor: jQuery,// 重定向的原型没有constructor，所以手动增加了一个constructor
+        toArray: function () {
+          return slice.call(this);
+        },
+        get: function (num) {
+          return num != null ?
+
+            // Return just the one element from the set
+            (num < 0 ? this[num + this.length] : this[num]) :
+
+            // Return all the elements in a clean array
+            slice.call(this);
+        },
+      }
+
+      var init = jQuery.fn.init = function (selector, context) {
+        // 当$执行时new的是当前这个函数
+        // init函数是干什么的，init里的代码就是获取dom的
+      }
+      init.prototype = jQuery.fn; // 把jQuery的原型赋值给init的原型
+
+      // 转让$和jQuery的使用权
+      var _jQuery = window.jQuery; // un 
+      var _$ = window.$; // 100
+      jQuery.noConflict = function (deep) {
+        if (window.$ === jQuery) {
+          window.$ = _$;
+        }
+
+        if (deep && window.jQuery === jQuery) {
+          window.jQuery = _jQuery;
+        }
+
+        return jQuery;
+      };
+      //-----------------------------------------------------
+      if (typeof noGlobal === "undefined") {
+
+        window.jQuery = window.$ = jQuery;
+        // 给window增加键值对
+      }
+    })
+
+
+
+    // $('#box').toArray()
+    // $('ul li').eq(0); // eq获取的是jq版的元素
+    // $('ul li').get(0); // 获取的是原生的li元素
+    // $(this)
+    // $('<div></div>')
+
+
+    // function Fn(){
+    //   return new Fn()
+    // }
+
+    // Fn()
+
+
+    // jQuery.extend({ // 往自己身上拓展方法
+    //   sss: function () {
+    //     console.log('我是拓展的方法');
+    //   }
+    // });
+
+    // jQuery.fn.extend({ // 往jq的原型上增加方法
+    //   fff: function () {
+    //     console.log('66666');
+    //   }
+    // })
+  </script>
+</body>
+
+</html>
